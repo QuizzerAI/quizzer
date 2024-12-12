@@ -1,0 +1,28 @@
+Analyze the provided PDF content related to computer science, extract the information, and generate a JSON document containing a quiz.
+
+The PDF describes a topic in computer science. Create multiple questions and answers based on the content of the text, adhering to the following JSON format:
+
+{
+    "topic": "A few words about the main subject of the document, not a summary.",
+    "questions": [
+        {
+            "question": "Your question here",
+            "answers": ["Answer 1", "Answer 2", "Answer 3", "Answer 4"],
+            "correct": 0,  // index of the correct answer
+            "explanation": "A brief explanation of why this is the correct answer."
+        },
+        ...
+    ]
+}
+
+- The "topic" field should consist of a few words denoting the main subject of the document.
+- The "question" field should contain the question text.
+- The "answers" field should list possible answers as an array.
+- The "correct" field specifies the index of the correct answer in the array.
+- The "explanation" field provides a brief justification for the correct answer.
+- Do not include any additional content in the response. Only return the JSON document with questions and answers.
+- Generate a large number of questions to cover the topic comprehensively.
+
+# Output Format
+
+Your response should be a JSON document structured as described above, without any markdown formatting.
