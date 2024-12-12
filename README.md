@@ -66,7 +66,7 @@ cat lezione16.airesponse.json | ./packer.py > lezione16.quizpack.json
 Questo comando riceve sulla pipe un file _quizpack_ ed avvia il quiz associato. Esempio:
 
 ```sh
-cat lezione16.airesponse.json | ./quiz.py
+cat lezione16.quizpack.json | ./quiz.py
 ```
 
 ## Perché le pipe
