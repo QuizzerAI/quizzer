@@ -1,82 +1,82 @@
 # Quizzer
 
-**Quizzer** è uno strumento AI che permette di creare quiz su misura direttamente dal tuo materiale di studio.
+**Quizzer** is an AI tool that allows you to create custom quizzes directly from your study material.
 
-## Come funziona
+## How it works
 
-**Quizzer** è composto da 3 componenti fondamentali:
+**Quizzer** consists of 3 main components:
 
-1. `quizzer.py`: è lo script che trasforma i tuoi **pdf** in file **json** contententi le domande. Questo tipo di file è chiamato **airesponse**. È l'unico script che usa l'AI.
-2. `packer.py`: è lo script che trasforma i tuoi **airesponse** in file **json** contententi le domande in un formato più facilmente gestibile. tale formato è chiamato **quizpack**
-3. `quiz.py`: è lo script che legge i tuoi **quizpack** e ti sottopone il test.
+1. `quizzer.py`: this script transforms your **pdf** files into **json** files containing the questions. This type of file is called **airesponse**. It is the only script that uses AI.
+2. `packer.py`: this script transforms your **airesponse** files into **json** files containing the questions in a more manageable format. This format is called **quizpack**.
+3. `quiz.py`: this script reads your **quizpack** files and presents the test to you.
 
-Quindi per effettuare un test è necessario effettuare alcuni passaggi:
+So, to take a test, you need to follow a few steps:
 
 ```txt
 file.pdf --[quizzer.py]--> file.airesponse.json --[packer.py]--> file.quizpack.json
 ```
 
-## Installazione
+## Installation
 
- > ATTENZIONE
- > Queste operazioni sono richieste solo se si vuole usare lo script `quizzer.py`.
- > Nel caso si voglia solo utilizzare dei file `quizpack` senza generarne di nuovi è possibile saltare l'installazione.
+ > WARNING
+ > These operations are only required if you want to use the `quizzer.py` script.
+ > If you only want to use `quizpack` files without generating new ones, you can skip the installation.
 
-Una volta scaricata la repository basterà installare i pacchetti richiesti andando nella cartella della repo ed eseguendo
+Once you have downloaded the repository, you just need to install the required packages by going to the repo folder and running
 
 ```sh
 pip install -r requirements.txt
 ```
 
-Eseguito il comando bisognerà accedere alla dashboard delle API di OpenAI e creare un nuovo assistente. Selezionare il modello desiderato (suggeriro: `gpt-4o-mini`) ed inserire sotto la voce _System instructions_ il contenuto del file  `system.prompt`.
+After running the command, you will need to access the OpenAI API dashboard and create a new assistant. Select the desired model (suggested: `gpt-4o-mini`) and enter the content of the `system.prompt` file under the _System instructions_ section.
 
-Una volta fatto ciò bisognerà creare nella root della cartella della repo un file `.env` ed inserire due righi strutturati come segue:
+Once this is done, you will need to create a `.env` file in the root of the repo folder and insert two lines structured as follows:
 
 ```sh
 OPENAI_API_KEY=sk-...MA
 ASSISTANT_ID=asst_...0R
 ```
 
-Sostituendo ovviamente con i valori corrispondenti che potete trovare sulla vostra dashboard.
+Obviously replacing with the corresponding values that you can find on your dashboard.
 
-Fatto ciò assicuratevi di avere del credito su OpenAI. Con questa configurazione lo script è molto economico, ho potuto fare test su tutto il materiale del corso di Reti di Calcolatori a soli €0,02. Scegliendo di usare `gpt-4o` potreste ottenere dei quiz meglio strutturati ma il costo è 10 volte maggiore.
+After this, make sure you have credit on OpenAI. With this configuration, the script is very economical; I was able to test all the material for the Computer Networks course for only €0.02. Choosing to use `gpt-4o` might get you better-structured quizzes, but the cost is 10 times higher.
 
-## Come usarlo
+## How to use it
 
-Vediamo come partire con il tuo file pdf ed arrivare a svolgere il quiz sugli argomenti trattati.
+Let's see how to start with your pdf file and get to taking the quiz on the covered topics.
 
 ### `quizzer.py`
 
-Questo comando deve ricevere come argomento il nome del file che deve analizzare; a sua volta esso stampa in output il risultato. Un esempio d'uso:
+This command must receive the name of the file to be analyzed as an argument; it then prints the result to the output. An example of use:
 
 ```sh
-./quizzer.py Slides/lezione16.pdf > lezione16.airesponse.json
+./quizzer.py Slides/lesson16.pdf > lesson16.airesponse.json
 ```
 
 ### `packer.py`
 
-Questo comando riceve sulla pipe un file _airesponse_ e stampa il quizpack associato. Esempio:
+This command receives an _airesponse_ file on the pipe and prints the associated quizpack. Example:
 
 ```sh
-cat lezione16.airesponse.json | ./packer.py > lezione16.quizpack.json
+cat lesson16.airesponse.json | ./packer.py > lesson16.quizpack.json
 ```
 
 ### `quiz.py`
 
-Questo comando riceve sulla pipe un file _quizpack_ ed avvia il quiz associato. Esempio:
+This command receives a _quizpack_ file on the pipe and starts the associated quiz. Example:
 
 ```sh
-cat lezione16.quizpack.json | ./quiz.py
+cat lesson16.quizpack.json | ./quiz.py
 ```
 
-## Perché le pipe
+## Why pipes
 
-In fase di testing risultava la soluzione più semplice per verificare che ogni componente si comportasse come previsto. Le pipe permettono di concatenare più comandi in uno più completo. In futuro si vorrà sicuramente supportare l'input ed output su file tramite argomenti.
+During testing, it was the simplest solution to verify that each component behaved as expected. Pipes allow you to concatenate multiple commands into a more complete one. In the future, it will definitely be necessary to support input and output on files via arguments.
 
-## Come contribuire
+## How to contribute
 
-Chiunque voglia contribuire è libero di farlo in ogni modo: con suggerimenti, pull request, scrivendo, traducendo ed organizzando la documentazione, ed in qualsiasi altro modo!
+Anyone who wants to contribute is free to do so in any way: with suggestions, pull requests, writing, translating, and organizing documentation, and in any other way!
 
-## Cosa viene dopo?
+## What's next?
 
-Oltre a risolvere problemi di stabilità legati alle risposte dell'AI, sarà necessario ampliare il toolset con script che permettano di gestire con più libertà i file quizpack, in maniera da poter riarrangiare (sia in maniera ordinata che casuale), filtrare, mappare, unire e dividere i file quizpack. Migliorare la fase di setup del tool, con script di installazione automatici, e di configurazione delle API di OpenAI. Inoltre migliorare la flessibilità dei tool già esistenti sarà un altro passo molto utile per rendere questo strumento ancora più comodo: permettere di inserire file di input multipli come argomenti, permettere di specificare un file di output, utilizzare funzioni asincrone per parallelizzare le chiamate ad openai; questi sono solo alcune delle idee per migliorare il Quizzer.
+In addition to solving stability issues related to AI responses, it will be necessary to expand the toolset with scripts that allow more freedom in managing quizpack files, so that they can be rearranged (both in an orderly and random manner), filtered, mapped, merged, and split. Improving the tool's setup phase with automatic installation scripts and OpenAI API configuration will also be necessary. Additionally, improving the flexibility of the existing tools will be another very useful step to make this tool even more convenient: allowing multiple input files as arguments, specifying an output file, using asynchronous functions to parallelize calls to OpenAI; these are just some of the ideas to improve Quizzer.
