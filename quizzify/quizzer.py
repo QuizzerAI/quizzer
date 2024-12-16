@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+import os
+from typing import List
 from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -6,8 +7,7 @@ from openai.types.beta import Assistant, Thread
 from openai.types.beta.threads import Message
 from openai.types.beta.threads.run import Run
 from openai.types.file_object import FileObject
-from typing import List
-import os
+
 
 class Quizzer:
     __client: OpenAI
@@ -74,17 +74,3 @@ class Quizzer:
             return self.__get_last_message_text(thread)
         else:
             raise Exception("Error in the response status: " + run.status)
-
-
-if __name__ == "__main__":
-    import argparse
-
-    def main():
-        parser = argparse.ArgumentParser(description="Quizzer application")
-        parser.add_argument("file_path", type=str, help="Path to the document to be quizzified")
-        args = parser.parse_args()
-        quizzer = Quizzer()
-        response = quizzer.quizzify(Path(args.file_path))
-        print(response)
-
-    main()
